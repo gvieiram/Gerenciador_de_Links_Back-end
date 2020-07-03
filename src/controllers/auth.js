@@ -1,6 +1,8 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const {Account} = require('../models');
+const {accountSignUp} = require('../validators/account');
+const {getMessage} = require('../helpers/validator');
 
 const router = express.Router();
 
@@ -10,19 +12,19 @@ router.get('/sign-in', (req, res)=> {
   return res.json('Sign-in');
 });
 
-router.get('/sign-up', async (req, res) => {
+router.get('/sign-up', accountSignUp, async (req, res) => {
   //Lê o email e a senha digitados
   const { email, password } = req.body;
 
   //Verifica se já existe o mesmo email
   const account = await Account.findOne({ where: { email } });
-  if (account) return res.jsonBadRequest(null, 'Esta conta já existe');
+  if (account) return res.jsonBadRequest(null, getMessage('account.signup.email_exists'));
 
   //Encripta senha
   const hash = bcrypt.hashSync(password, saltRounds);
   const newAccount = await Account.create({ email, password: hash });
 
-  return res.jsonOK(newAccount, 'Conta criada com sucesso.');
+  return res.jsonOK(newAccount, getMessage('account.signup.sucess'));
 });
 
 module.exports = router;

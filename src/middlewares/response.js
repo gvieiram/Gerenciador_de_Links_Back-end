@@ -1,3 +1,5 @@
+const {getMessage} = require('../helpers/messages');
+
 const TYPE_JSON = 'application/json';
 const STATUS_CODE_OK = 200;
 const STATUS_CODE_BAD_REQUEST = 400;
@@ -8,7 +10,7 @@ const STATUS_CODE_SERVER_ERROR = 500;
 //STATUS_CODE_OK
 const jsonOK = function(data, message, metadata){
   const status = STATUS_CODE_OK;
-  message = message ? message: 'Sucessful request.'
+  message = message ? message: getMessage('response.json_OK');
   metadata = metadata ? metadata: {};
 
   this.status(status);
@@ -19,7 +21,7 @@ const jsonOK = function(data, message, metadata){
 //STATUS_CODE_BAD_REQUEST
 const jsonBadRequest = function(data, message, metadata){
   const status = STATUS_CODE_BAD_REQUEST;
-  message = message ? message: 'Bad request.'
+  message = message ? message: getMessage('response.json_Bad_Request');
   metadata = metadata ? metadata: {};
 
   this.status(status);
@@ -30,7 +32,7 @@ const jsonBadRequest = function(data, message, metadata){
 //STATUS_CODE_UNAUTHORIZED
 const jsonUnauthorized = function(data, message, metadata){
   const status = STATUS_CODE_UNAUTHORIZED;
-  message = message ? message: 'Unauthorized.'
+  message = message ? message: getMessage('response.json_Unauthorized');
   metadata = metadata ? metadata: {};
 
   this.status(status);
@@ -41,7 +43,7 @@ const jsonUnauthorized = function(data, message, metadata){
 //STATUS_CODE_NOT_FOUD
 const jsonNotFound = function(data, message, metadata){
   const status = STATUS_CODE_NOT_FOUD;
-  message = message ? message: 'Not Found.'
+  message = message ? message: getMessage('response.json_Not_Found');
   metadata = metadata ? metadata: {};
 
   this.status(status);
@@ -52,7 +54,7 @@ const jsonNotFound = function(data, message, metadata){
 //STATUS_CODE_SERVER_ERROR
 const jsonServerError = function(data, message, metadata){
   const status = STATUS_CODE_SERVER_ERROR;
-  message = message ? message: 'Server error.'
+  message = message ? message: getMessage('response.json_Server_Error');
   metadata = metadata ? metadata: {};
 
   this.status(status);
